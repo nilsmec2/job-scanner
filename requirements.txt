@@ -1,0 +1,4 @@
+python-jobspy
+anthropic
+python-dotenv
+pandas
