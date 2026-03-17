@@ -1,0 +1,24 @@
+name: Daily Job Scanner
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # runs every day at 7am Berlin time
+  workflow_dispatch:       # also lets you run it manually anytime
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run job scanner
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python job_scanner.py
